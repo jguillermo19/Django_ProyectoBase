@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %} | Proyecto Django</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+</head>
+<body>
+    <!--Cabecera de la pagina-->
+    <header>
+        <div id="logotipo">
+            <!--Logo Django-->
+            <img src="{%static 'imagenes/logo.png'%}" alt="Logotipo Django" title="Django"/>
+            <h1>Proyecto con Django</h1>
+        </div>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="{%url 'index'%}">Inicio</a></li>
+            
+            {%if user.email%}
+                <li>
+                    <a href="{%url 'articulos'%}">Categorías</a>
+                    <ul>
+                        {%for category in categories%}
+                            <li><a href="{%url 'categorias' category.0%}">{{category.1}}</a></li>
+                        {%endfor%}
+                    </ul>
+                </li>
+                {%for page in pages%}
+                    <li><a href="{%url 'page' page.2%}">{{page.1}}</a></li>
+                {%endfor%}
+                <li><a href="{%url 'logout'%}">Cerrar sesión</a></li>
+            {%else%}
+                <li><a href="{%url 'registro'%}">Registro</a></li>
+                <li><a href="{%url 'login'%}">Iniciar sesión</a></li>
+            {%endif%}
+        </ul>
+    </nav>
+    <div class="barra">
+        <span class="esquina-izquierda"></span>
+        <span class="relleno"></span>
+        <span class="esquina-derecha"></span>
+    </div>
+
+    <div id="content">
+        <div class="box">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </div>
+    
+    <footer>
+        Django &copy; 2021 {%now 'd/m/Y'%}
+    </footer>
+</body>
+</html>
