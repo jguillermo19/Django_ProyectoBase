@@ -1,2 +1,2 @@
 # Django_ProyectoBase
-Proyecto base para realizar una aplicación Web
+Proyecto base para realizar una aplicación Web en Django
